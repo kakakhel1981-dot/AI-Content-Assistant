@@ -8,9 +8,13 @@ st.title("✍️ AI Content Assistant")
 st.write("Generate tailored posts for any social platform in seconds using Groq API.")
 
 # Sidebar for API Key configuration
-st.sidebar.header("🔑 Configuration")
-api_key = st.sidebar.text_input("Enter Groq API Key:", type="password")
-st.sidebar.markdown("[Get a free Groq API Key](https://console.groq.com/keys)")
+# Check Streamlit Secrets first, or fallback to sidebar input
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+else:
+    st.sidebar.header("🔑 Configuration")
+    api_key = st.sidebar.text_input("Enter Groq API Key:", type="password")
+    st.sidebar.markdown("[Get a free Groq API Key](https://console.groq.com/keys)")
 
 # User Selection Inputs
 col1, col2 = st.columns(2)
